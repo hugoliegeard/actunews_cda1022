@@ -1,0 +1,68 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Administration</div>
+                <a class="nav-link" href="{{ path('admin_dashboard') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+
+                <!-- ---------------------| GESTION DES ARTICLES |--------------------- -->
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePosts"
+                   aria-expanded="false" aria-controls="collapsePosts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Articles
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapsePosts" aria-labelledby="headingOne"
+                     data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ path('admin_posts') }}">Voir les Articles</a>
+                        <a class="nav-link" href="{{ path('admin_addpost') }}">Créer un Article</a>
+                    </nav>
+                </div>
+
+                <!-- ---------------------| GESTION DES CATEGORIES |--------------------- -->
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategories"
+                   aria-expanded="false" aria-controls="collapseCategories">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Catégories
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseCategories" aria-labelledby="headingOne"
+                     data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Voir les Catégories</a>
+                        <a class="nav-link" href="#">Créer une Catégorie</a>
+                    </nav>
+                </div>
+
+                <!-- ---------------------| GESTION DES UTILISATEURS |--------------------- -->
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
+                   aria-expanded="false" aria-controls="collapseUsers">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Utilisateurs
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUsers" aria-labelledby="headingOne"
+                     data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Voir les Utilisateurs</a>
+                        <a class="nav-link" href="#">Créer un Utilisateurs</a>
+                    </nav>
+                </div>
+
+                <!-- ---------------------| GESTION DES COMMENTAIRES |--------------------- -->
+                <a class="nav-link" href="#">
+                    <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                    Commentaires
+                </a>
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Connecté en tant que :</div>
+            XXXXXXXXXXXXXXXX
+        </div>
+    </nav>
+</div>
