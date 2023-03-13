@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Gestion des utilisateurs</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Gestion des utilisateurs</li>
+        </ol>
+        <div class="row mt-5">
+            <div class="col-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {% include 'components/_alert.html.twig' %}
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Prénom, Nom</th>
+                                <th>E-mail</th>
+                                <th>Role(s)</th>
+                                <th>Modifier</th>
+                                <th>Supprimer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.fullname }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.roles|join(', ') }}</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="#"><i class="fas fa-pen"></i></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="#"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

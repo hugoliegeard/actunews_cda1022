@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des catégories{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Gestion des catégories</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Gestion des catégories</li>
+        </ol>
+        <div class="row mt-5">
+            <div class="col-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {% include 'components/_alert.html.twig' %}
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Alias</th>
+                                <th>Parent</th>
+                                <th>Modifier</th>
+                                <th>Supprimer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for category in categories %}
+                                <tr>
+                                    <td>{{ category.id }}</td>
+                                    <td>{{ category.name }}</td>
+                                    <td>{{ category.slug }}</td>
+                                    <td>{{ category.parent is not empty ? category.parent.name : '--' }}</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="#"><i class="fas fa-pen"></i></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="#"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

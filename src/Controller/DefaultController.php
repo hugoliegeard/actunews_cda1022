@@ -12,7 +12,7 @@ class DefaultController extends AbstractController
      */
     public function home()
     {
-        return $this->render('default/home.html.twig');
+        return $this->redirectToRoute('admin_dashboard');
     }
 
     public function contact()

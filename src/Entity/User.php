@@ -38,9 +38,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
     private Collection $posts;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'likes')]
+    private ?Comment $commentLike = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->password = md5(random_bytes(5));
     }
 
     public function getId(): ?int
@@ -174,5 +182,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getFullname(): string
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCommentLike(): ?Comment
+    {
+        return $this->commentLike;
+    }
+
+    public function setCommentLike(?Comment $commentLike): self
+    {
+        $this->commentLike = $commentLike;
+
+        return $this;
     }
 }

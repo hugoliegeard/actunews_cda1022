@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des commentaires{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Gestion des commentaires</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Gestion des commentaires</li>
+        </ol>
+        <div class="row mt-5">
+            <div class="col-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {% include 'components/_alert.html.twig' %}
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Message</th>
+                                <th>Article</th>
+                                <th>Utilisateur</th>
+                                <th>Supprimer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for comment in comments %}
+                                <tr>
+                                    <td>{{ comment.id }}</td>
+                                    <td>{{ comment.content }}</td>
+                                    <td>{{ comment.post.title }}</td>
+                                    <td>{{ comment.user.fullname }}</td>
+                                    <td>
+                                        <a class="btn btn-danger" href="#"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

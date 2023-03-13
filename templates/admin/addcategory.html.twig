@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une catégorie{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Ajouter une catégorie</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Dashboard</a></li>
+        <li class="breadcrumb-item active">Ajouter une catégorie</li>
+    </ol>
+    <div class="row mt-5">
+        <div class="col-6 mx-auto">
+            <h3 class="mb-5">Ajouter une catégorie</h3>
+            {{ form(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
