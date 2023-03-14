@@ -43,10 +43,10 @@
                                     <td>{{ post.createdAt|date('d/m/Y') }}</td>
                                     <td>{{ post.active }}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="#"><i class="fas fa-pen"></i></a>
+                                        <a class="btn btn-warning" href="{{ path('post_edit', {'id' : post.id}) }}"><i class="fas fa-pen"></i></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" href="#"><i class="fas fa-trash"></i></a>
+                                        <a class="btn btn-danger" href="{{ path('post_delete', {'id' : post.id}) }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

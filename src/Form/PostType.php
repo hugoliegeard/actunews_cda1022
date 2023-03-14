@@ -39,7 +39,9 @@ class PostType extends AbstractType
             ->add('content', CKEditorType::class, [
                 'label' => 'Contenu de l\'article'
             ])
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required' => false
+            ])
             ->add('active', CheckboxType::class, [
                 'label' => 'Publier l\'article ?',
                 'required' => false

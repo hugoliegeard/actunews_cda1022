@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,6 +38,22 @@ class PostRepository extends ServiceEntityRepository
 
         if ($flush) {
             $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * Retourne le total d'élément du repository
+     * @return int
+     */
+    public function findTotal(): int
+    {
+        try {
+            return $this->createQueryBuilder('p')
+                ->select('COUNT(p)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException|NoResultException  $e) {
+            return 0;
         }
     }
 

@@ -31,7 +31,7 @@ class CategoryType extends AbstractType
                 'placeholder' => 'Choisissez une catégorie parente',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer la catégorie'
+                'label' => 'Enregistrer la catégorie'
             ])
         ;
     }

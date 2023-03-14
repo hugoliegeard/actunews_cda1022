@@ -45,7 +45,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer un compte pour cet utilisateur'
+                'label' => 'Enregistre le compte de cet utilisateur'
             ])
         ;
 

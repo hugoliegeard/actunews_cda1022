@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,6 +38,22 @@ class CommentRepository extends ServiceEntityRepository
 
         if ($flush) {
             $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * Retourne le total d'élément du repository
+     * @return int
+     */
+    public function findTotal(): int
+    {
+        try {
+            return $this->createQueryBuilder('c')
+                ->select('COUNT(c)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException|NoResultException  $e) {
+            return 0;
         }
     }
 

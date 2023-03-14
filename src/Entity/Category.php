@@ -26,7 +26,7 @@ class Category
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, orphanRemoval: true)]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class, orphanRemoval: true)]
