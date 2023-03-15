@@ -5,12 +5,16 @@ namespace App\Controller\Dashboard;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\Mailjet\Mailing\UserMailing;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 #[Route('/dashboard/users')]
 class UserDashboardController extends AbstractController
@@ -27,7 +31,10 @@ class UserDashboardController extends AbstractController
     }
 
     #[Route('/add', name: 'user_add', methods: 'GET|POST')]
-    public function addUser(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
+    public function addUser(Request $request,
+                            UserMailing $userMailing,
+                            ManagerRegistry $doctrine,
+                            UserPasswordHasherInterface $passwordHasher): Response
     {
         # Création d'un nouvel article
         $user = new User();
@@ -58,8 +65,12 @@ class UserDashboardController extends AbstractController
                 Merci, votre utilisateur '{$user->getFullname()}' a bien été créé.
             ");
 
-            # TODO : Envoi d'un e-mail à l'utilisateur avec son mot de passe. LOL
-            # FIXME : Idéalement il faudrait envoyer à l'utilisateur un e-mail avec un token de reset password.
+            # Envoi d'un e-mail à l'utilisateur avec son mot de passe. (A réinitialiser lors de la première connexion)
+            try {
+                $userMailing->sendRegistrationMail($user, $plainPassword);
+            } catch (LoaderError|RuntimeError|SyntaxError) {
+                $this->addFlash('danger', "Une erreur est survenu lors de l'envoi de l'email.");
+            }
 
             # Redirection sur une autre page
             return $this->redirectToRoute('user_users');

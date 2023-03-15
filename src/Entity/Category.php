@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -17,6 +18,11 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'N\'oubliez pas de saisir le nom de la catégorie.')]
+    #[Assert\Length(
+        max: 100,
+        maxMessage: 'Attention, votre catégorie ne doit pas dépasser plus de {{ limit }} caractères.',
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 120)]

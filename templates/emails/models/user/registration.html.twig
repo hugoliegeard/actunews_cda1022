@@ -1,0 +1,17 @@
+<p><strong>Bonjour {{ user.fullname }},</strong></p>
+
+<p>Nous avons le plaisir de vous confirmer l'ouverture de votre compte chez ActuNews !</p>
+<p>
+    <u>Ci-dessous vos acc&egrave;s &agrave; votre espace.</u><br><br>
+    <strong>Email :</strong> {{ user.email }}<br>
+    <strong>Mot de Passe :</strong> {{ plainPassword }} <em style="color: red">(A changer lors de votre première connexion)</em>
+    <br><br>
+    <a href="{{ url('dashboard_home') }}"
+        style="display: inline-block; padding: 8px 30px;
+        margin: 10px 0 20px 0; font-size: 15px; color: white;
+        background: #3d528b; border-radius: 60px; text-decoration: none;">
+        Connexion à mon espace privé
+    </a>
+</p>
+
+{% include 'emails/components/_signature.html.twig' %}

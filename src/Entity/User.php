@@ -6,10 +6,17 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(
+    fields: ['email'],
+    message: 'Attention, un compte existe déjà avec cette adresse e-mail',
+    errorPath: 'email',
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,6 +25,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email(message: 'Vérifiez le format de votre email : {{ value }}.')]
+    #[Assert\NotBlank(message: 'N\'oubliez pas de saisir votre email.')]
+    #[Assert\Length(
+        max: 180,
+        maxMessage: 'Attention, votre e-mail ne doit pas dépasser plus de {{ limit }} caractères.',
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -27,12 +40,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var ?string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'N\'oubliez pas de saisir votre mot de passe.')]
+    #[Assert\NotCompromisedPassword(message: 'Ce mot de passe a été trouvé dans une brèche de sécurité,
+     il ne peut être utilisé. Choisissez un nouveau mot de passe.')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'N\'oubliez pas de saisir votre prénom.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Attention, votre prénom ne doit pas dépasser plus de {{ limit }} caractères.',
+    )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'N\'oubliez pas de saisir votre nom.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Attention, votre nom ne doit pas dépasser plus de {{ limit }} caractères.',
+    )]
     private ?string $lastname = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class, orphanRemoval: true)]

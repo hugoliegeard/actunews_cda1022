@@ -19,7 +19,6 @@ class PostDashboardController extends AbstractController
     #[Route('/', name: 'post_posts', methods: 'GET')]
     public function posts(PostRepository $postRepository): Response
     {
-        # TODO : Utiliser a la place un système de pagination
         # Récupération dans la BDD des articles
         $posts = $postRepository->findAll();
 

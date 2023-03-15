@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[Vich\Uploadable]
@@ -21,6 +22,11 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Vous devez saisir un titre.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Attention, votre titre ne doit pas dépasser plus de {{ limit }} caractères.',
+    )]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
@@ -28,6 +34,7 @@ class Post
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Vous devez saisir un contenu à votre article.')]
     private ?string $content = null;
 
     #[ORM\Column(length: 255)]
