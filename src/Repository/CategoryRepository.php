@@ -57,6 +57,14 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    public function findDeletedCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.deletedAt IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */

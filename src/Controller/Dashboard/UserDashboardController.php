@@ -33,11 +33,12 @@ class UserDashboardController extends AbstractController
     #[Route('/add', name: 'user_add', methods: 'GET|POST')]
     public function addUser(Request $request,
                             UserMailing $userMailing,
-                            ManagerRegistry $doctrine,
-                            UserPasswordHasherInterface $passwordHasher): Response
+                            ManagerRegistry $doctrine): Response
     {
         # Création d'un nouvel article
         $user = new User();
+        $user->setCreatedAt(new \DateTime()); #FIXME Doit se faire automatiquement
+        $user->setUpdatedAt(new \DateTime()); #FIXME Doit se faire automatiquement
         $plainPassword = $user->getPassword();
 
         # Création du formulaire
@@ -46,14 +47,6 @@ class UserDashboardController extends AbstractController
 
         # Vérification de notre formulaire
         if ($form->isSubmitted() && $form->isValid()) {
-
-            # Encodage du mot de passe
-            $user->setPassword(
-                $passwordHasher->hashPassword(
-                    $user,
-                    $user->getPassword()
-                )
-            );
 
             # Sauvegarde dans la BDD
             $em = $doctrine->getManager();

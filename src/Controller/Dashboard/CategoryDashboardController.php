@@ -18,7 +18,10 @@ class CategoryDashboardController extends AbstractController
     public function categories(CategoryRepository $categoryRepository): Response
     {
         # Récupération dans la BDD des categories
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findBy(['deletedAt' => NULL]);
+
+        # Permet de récupérer les enregistrements qui ont été supprimés.
+        # $categories = $categoryRepository->findDeletedCategories();
 
         return $this->render('dashboard/category/categories.html.twig', [
             'categories' => $categories
