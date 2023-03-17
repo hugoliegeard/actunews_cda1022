@@ -3,6 +3,13 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use App\Controller\Api\MeController;
+use App\Entity\Traits\TimestampableEntityTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,10 +19,23 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/me',
+            controller: MeController::class,
+            security: "is_granted('IS_AUTHENTICATED_FULLY')",
+            name: 'me'
+        ),
+        new \ApiPlatform\Metadata\Post(),
+        new Patch(security: "is_granted('IS_AUTHENTICATED_FULLY')"),
+        new Delete(security: "is_granted('IS_AUTHENTICATED_FULLY')")
+    ]
+)]
 #[UniqueEntity(
     fields: ['email'],
     message: 'Attention, un compte existe déjà avec cette adresse e-mail',
@@ -25,6 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
     use TimestampableEntity;
+    use TimestampableEntityTrait;
     use SoftDeleteableEntity;
 
     #[ORM\Id]
@@ -59,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         max: 255,
         maxMessage: 'Attention, votre prénom ne doit pas dépasser plus de {{ limit }} caractères.',
     )]
+    #[Groups(['post:read'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
@@ -67,12 +89,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         max: 255,
         maxMessage: 'Attention, votre nom ne doit pas dépasser plus de {{ limit }} caractères.',
     )]
+    #[Groups(['post:read'])]
     private ?string $lastname = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class, orphanRemoval: true)]
     private Collection $posts;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
+    #[Groups(['post:read'])]
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]

@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Entity\Traits\TimestampableEntityTrait;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,14 +14,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\Timestampable;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection()
+    ]
+)]
 class Category
 {
 
     use TimestampableEntity;
+    use TimestampableEntityTrait;
     use SoftDeleteableEntity;
 
     #[ORM\Id]
@@ -32,10 +42,12 @@ class Category
         max: 100,
         maxMessage: 'Attention, votre catégorie ne doit pas dépasser plus de {{ limit }} caractères.',
     )]
+    #[Groups(['post:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 120)]
     #[Gedmo\Slug(fields: ['name'])]
+    #[Groups(['post:read'])]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]

@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Entity\Traits\TimestampableEntityTrait;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,13 +14,22 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new \ApiPlatform\Metadata\Post(security: "is_granted('IS_AUTHENTICATED_FULLY')"),
+        new Delete(security: "is_granted('IS_AUTHENTICATED_FULLY')")
+    ]
+)]
 class Comment
 {
 
     use TimestampableEntity;
+    use TimestampableEntityTrait;
     use SoftDeleteableEntity;
 
     #[ORM\Id]
@@ -25,6 +38,7 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['post:read'])]
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
@@ -33,6 +47,7 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['post:read'])]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'commentLike', targetEntity: User::class)]

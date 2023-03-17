@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
+        "lexik/jwt-authentication-bundle": "^2.18",
         "mailjet/mailjet-apiv3-php": "^1.5",
         "nelmio/cors-bundle": "^2.3",
         "phpdocumentor/reflection-docblock": "^5.3",
