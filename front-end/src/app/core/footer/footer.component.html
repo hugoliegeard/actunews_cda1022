@@ -6,48 +6,27 @@
       <div class="col-md-4  col-sm-4 col-xs-12">
         <div class="about">
           <a href="#" class="logo">
-            <img alt="" src="images/logo_footer.png"/>
+            <img alt="" src="assets/images/logo_footer.png"/>
           </a>
           <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
             in some form</p>
         </div>
       </div>
       <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12">
-        <h3>HOT CATEGORIES</h3>
+        <h3>CATEGORIES</h3>
         <ul class="list-category">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="business.html">Business</a></li>
-          <li><a href="reviews.html">Reviews</a></li>
-          <li><a href="video.html">Video</a></li>
-          <li><a href="computing.html">Computing</a></li>
-          <li><a href="mobile.html">Mobile</a></li>
-          <li><a href="tech.html">Tech</a></li>
-          <li><a href="contact.html">Contact </a></li>
+          <li><a routerLink="/">Accueil</a></li>
+          <li *ngFor="let category of categories$ | async">
+            <a [routerLink]="category.slug">{{ category.name }}</a>
+          </li>
         </ul>
-      </div>
-      <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12">
-        <h3>HOT TAGS</h3>
-
-        <div class="list-tags">
-          <a href="#">iPhone 7</a>
-          <a href="#">News</a>
-          <a href="#">Sport</a>
-          <a href="#">Apple</a>
-          <a href="#">Alcatel</a>
-          <a href="#">Pixi 4</a>
-          <a href="#">Elon Musk </a>
-          <a href="#">Smart phone</a>
-          <a href="#">Nexus</a>
-          <a href="#">Canvas</a>
-
-        </div>
       </div>
     </div>
     <!--All right-->
     <div class="allright">
       <div class="row">
         <div class="col-sm-6 col-xs-12">
-          <p> © 2016 <a href="#">TEZ NEWS</a>. All rights reserved.</p>
+          <p> © 2023 <a href="#">ACTUNEWS</a>. Tous droits réservés.</p>
         </div>
 
         <div class="col-sm-6 col-xs-12">

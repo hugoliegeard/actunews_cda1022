@@ -1,51 +1,5 @@
 <!--header-->
-<header class="header">
-  <div class="row">
-    <div class="col-md-3 col-sm-4 col-xs-12">
-      <a href="#" class="logo">
-        <img alt="Logo" src="assets/images/logo.png"/>
-      </a>
-    </div>
-    <div class="col-md-6 col-md-offset-3 col-sm-8  text-right col-xs-12 hidden-xs">
-      <div class="owl-carousel owl-special">
-        <div>
-          <div class="special-news">
-            <a href="#">
-              <img alt="" src="assets/images/product/17.jpg"/>
-            </a>
-            <h3><a href="#">Apple iPhone 7 review </a></h3>
-            <div class="meta-post">
-              <a href="#">
-                Ashley Ford
-              </a>
-              <em></em>
-              <span>
-                                            21 Sep 2016
-                                        </span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="special-news">
-            <a href="#">
-              <img alt="" src="assets/images/product/18.jpg"/>
-            </a>
-            <h3><a href="#">YouTube Go is a new app for offline viewing and sharing </a></h3>
-            <div class="meta-post">
-              <a href="#">
-                Super User
-              </a>
-              <em></em>
-              <span>
-                                            25 Sep 2016
-                                        </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+<header class="header"></header>
 <!--menu-->
 <nav class="menu font-heading">
   <div class="menu-icon hidden-lg hidden-md">
@@ -54,139 +8,10 @@
   </div>
   <ul class="hidden-sm hidden-xs">
     <li>
-      <a href="index.html">Home </a>
+      <a routerLink="/">Accueil </a>
     </li>
-    <li>
-      <a href="business.html">Business</a>
-    </li>
-    <li class="mega">
-      <a href="reviews.html">Reviews<span></span></a>
-      <!--Mega menu-->
-      <div class="mega-menu">
-        <h3>
-          Latest Post
-        </h3>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="mega-col">
-              <div class="mega-item">
-                <div class="mega-item-img">
-                  <a href="article.html">
-                    <img alt="" src="assets/images/product/3.jpg"/>
-                  </a>
-                  <a href="#" class="cate-tag">Business</a>
-                </div>
-                <p><a href="article.html"> Aligning Digital Marketing with Business Goals and Objectives</a></p>
-                <div class="meta-post">
-                  <a href="#">
-                    Sue Benson
-                  </a>
-                  <em></em>
-                  <span>
-                                                    22 Sep 2016
-                                                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="mega-col">
-              <div class="mega-item">
-                <div class="mega-item-img">
-                  <a href="article.html">
-                    <img alt="" src="assets/images/product/4.jpg"/>
-                  </a>
-                  <a href="#" class="cate-tag">Computing</a>
-                </div>
-                <p>
-                  <a href="article.html">
-                    Six big ways MacOS Sierra is going to change your Apple experience
-                  </a>
-                </p>
-                <div class="meta-post">
-                  <a href="#">
-                    Marion Craig
-                  </a>
-                  <em></em>
-                  <span>
-                                                    21 Sep 2016
-                                                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="mega-col">
-              <div class="mega-item">
-                <div class="mega-item-img">
-                  <a href="article.html">
-                    <img alt="" src="assets/images/product/5.jpg"/>
-                  </a>
-                  <a href="#" class="cate-tag">Tech</a>
-                </div>
-                <p><a href="article.html">Messenger Bots Are Overhyped, Growing like Crazy</a></p>
-                <div class="meta-post">
-                  <a href="#">
-                    Super User
-                  </a>
-                  <em></em>
-                  <span>
-                                                    26 Sep 2016
-                                                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="mega-col">
-              <div class="mega-item">
-                <div class="mega-item-img">
-                  <a href="article.html">
-                    <img alt="" src="assets/images/product/6.jpg"/>
-                  </a>
-                  <a href="#" class="cate-tag">Business</a>
-                </div>
-                <p><a href="article.html">7 essential lessons from agency marketing to startup growth</a></p>
-                <div class="meta-post">
-                  <a href="#">
-                    Ashley Ford
-                  </a>
-                  <em></em>
-                  <span>
-                                                    26 September 2016
-                                                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li>
-      <a href="video.html">Video </a>
-    </li>
-    <li>
-      <a href="computing.html">Computing</a>
-    </li>
-    <li>
-      <a href="mobile.html">Mobile</a>
-    </li>
-    <li>
-      <a href="tech.html">Tech </a>
-    </li>
-    <li>
-      <a href="#">Page <span></span></a>
-      <ul class="submenu">
-        <li>
-          <a href="404.html">404</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact us</a>
-        </li>
-        <li>
-          <a href="article.html">Article Post</a>
-        </li>
-      </ul>
+    <li *ngFor="let category of categories">
+      <a [routerLink]="category.slug">{{ category.name }}</a>
     </li>
   </ul>
   <div class="search-icon">
@@ -194,8 +19,8 @@
       <i class="fa fa-search"></i>
     </div>
     <div class="search-box">
-      <input type="text" placeholder="Search..."/>
-      <button>Search</button>
+      <input type="text" placeholder="Rechercher..."/>
+      <button>Lancer</button>
     </div>
   </div>
 </nav>

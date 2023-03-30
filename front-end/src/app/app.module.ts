@@ -9,6 +9,10 @@ import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { HomeComponent } from './modules/pages/home/home.component';
 import { CategoryComponent } from './modules/pages/category/category.component';
 import { PostComponent } from './modules/pages/post/post.component';
+import {HttpClientModule} from "@angular/common/http";
+import {RouterModule} from "@angular/router";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CarouselModule} from "ngx-owl-carousel-o";
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { PostComponent } from './modules/pages/post/post.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    CarouselModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

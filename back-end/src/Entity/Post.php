@@ -69,7 +69,7 @@ class Post
     private ?string $content = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read'])]
+    #[Groups(['post:read'])]
     private ?string $image = null;
 
     #[Vich\UploadableField(mapping: 'posts', fileNameProperty: 'image')]
@@ -86,6 +86,7 @@ class Post
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['post:read'])]
     private ?User $author = null;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
