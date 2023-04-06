@@ -12,18 +12,18 @@ const routes: Routes = [
   },
   {
     // http://localhost:4200/politique
-    path: ':alias',
+    path: ':slug',
     component: CategoryComponent,
   },
   {
     // http://localhost:4200/category/politique
-    path: 'category/:alias',
-    redirectTo: '/:alias',
+    path: 'category/:slug',
+    redirectTo: '/:slug',
     pathMatch: 'full'
   },
   {
-    // http://localhost:4200/politique/alias-de-mon-article
-    path: ':category/:alias',
+    // http://localhost:4200/politique/slug-de-mon-article
+    path: ':category/:slug',
     component: PostComponent,
   },
   {

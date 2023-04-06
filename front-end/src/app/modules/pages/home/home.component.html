@@ -39,13 +39,13 @@
     <div class="col-md-4 col-sm-4 col-xs-12" *ngFor="let post of posts">
       <div class="spotlight-item-thumb">
         <div class="spotlight-item-thumb-img">
-          <a href="#">
+          <a routerLink="/{{ post.category.slug+'/'+post.slug }}">
             <img alt="{{ post.title }}" src="https://localhost:8000/uploads/posts/{{ post.image }}"
                  class="img-responsive"/>
           </a>
           <a [routerLink]="post.category.slug" class="cate-tag">{{ post.category.name }}</a>
         </div>
-        <h3><a href="#">{{ post.title }}</a></h3>
+        <h3><a routerLink="/{{ post.category.slug+'/'+post.slug }}">{{ post.title }}</a></h3>
         <div class="meta-post">
           <a href="#">
             {{ post.author.firstname + ' ' + post.author.lastname }}

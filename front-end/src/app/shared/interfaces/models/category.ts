@@ -1,4 +1,3 @@
-import {ApiResponse} from "../api/api.response";
 
 export interface Category {
   "@id"?: string;

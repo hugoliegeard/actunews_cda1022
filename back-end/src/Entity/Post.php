@@ -34,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(SearchFilter::class, properties: [
     'slug' => 'exact',
-    'category' => 'exact',
+    'category.slug' => 'exact',
 ])]
 #[ApiFilter(BooleanFilter::class, properties: ['active'])]
 class Post
