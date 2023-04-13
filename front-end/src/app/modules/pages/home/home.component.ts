@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit {
       this.posts = apiPostResponse["hydra:member"];
       this.featuredPosts = this.posts.splice(0,2);
 
-      console.log(this.posts);
-      console.log(this.featuredPosts);
+      //console.log(this.posts);
+      //console.log(this.featuredPosts);
     });
   }
 }

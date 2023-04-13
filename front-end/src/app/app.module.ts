@@ -13,6 +13,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CarouselModule} from "ngx-owl-carousel-o";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 @NgModule({
   declarations: [
@@ -24,14 +25,15 @@ import {CarouselModule} from "ngx-owl-carousel-o";
     CategoryComponent,
     PostComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    BrowserAnimationsModule,
-    CarouselModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule,
+        BrowserAnimationsModule,
+        CarouselModule,
+        HttpClientModule,
+        NgxSkeletonLoaderModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

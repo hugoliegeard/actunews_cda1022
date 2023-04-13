@@ -17,12 +17,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[UniqueEntity(
+    fields: ['slug'],
+    message: 'Attention, un artile utilise déjà cet alias',
+    errorPath: 'slug',
+)]
 #[Vich\Uploadable]
 #[ApiResource(
     operations: [
@@ -58,7 +64,7 @@ class Post
     #[Groups(['post:read'])]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     #[Gedmo\Slug(fields: ['title'])]
     #[Groups(['post:read'])]
     private ?string $slug = null;

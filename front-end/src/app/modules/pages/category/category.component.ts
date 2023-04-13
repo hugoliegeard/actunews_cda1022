@@ -16,7 +16,7 @@ export class CategoryComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     // Récupération du paramètre dans la route
     //const slug = this.activatedRoute.snapshot.params['slug'];
     this.activatedRoute.params.subscribe(params => {

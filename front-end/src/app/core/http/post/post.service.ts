@@ -18,6 +18,14 @@ export class PostService {
   }
 
   /**
+   * Permet de retourner un article via son slug (alias).
+   * @param slug
+   */
+  getPostBySlug(slug: string): Observable<ApiPostResponse> {
+    return this.http.get<ApiPostResponse>(environment.apiEndpoint + '/api/posts?active=1&slug=' + slug)
+  }
+
+  /**
    * Permet de retourner les articles
    * publiés d'une catégorie de l'API.
    */
